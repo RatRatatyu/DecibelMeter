@@ -1,0 +1,32 @@
+name: sound_metter
+description: "A sound metter app."
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_markdown: ^0.7.7+1
+  permission_handler: ^12.0.1
+  noise_meter: ^5.1.0
+  provider: ^6.0.5
+  wakelock_plus: ^1.4.0
+  flutter_localization: ^0.3.3
+  intl: ^0.20.2
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/diagram.jpg
+    - assets/pointer.png
+    - assets/texts/ruText.md

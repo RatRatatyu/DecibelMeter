@@ -1,0 +1,5 @@
+{
+  "helloWorld": "Привет, мир!",
+  "loginButton": "Войти",
+  "welcomeMessage": "Добро пожаловать, {name}!"
+}
