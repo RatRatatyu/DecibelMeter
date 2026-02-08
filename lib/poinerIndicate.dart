@@ -3,20 +3,60 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sound_metter/state/noisePrividerState.dart';
-import 'package:sound_metter/uiStyle/imageAsset.dart';
 
-class Pointer extends StatelessWidget{
+
+class PointerPainter extends CustomPainter {
+  final double angle;
+
+  PointerPainter({required this.angle});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.fill
+      ..strokeCap = StrokeCap.round;
+
+    final center = Offset(size.width / 2, size.height);
+
+    canvas.save();
+    canvas.translate(center.dx, center.dy);
+    canvas.rotate(angle);
+    canvas.translate(-center.dx, -center.dy);
+
+
+    final path = Path();
+    path.moveTo(size.width * 0.4, size.height);
+    path.lineTo(size.width * 0.6, size.height);
+    path.lineTo(size.width * 0.5, 0);
+    path.close();
+
+    canvas.drawPath(path, paint);
+
+    canvas.drawCircle(center, size.width * 0.4, paint..color = Colors.black);
+    canvas.drawCircle(center, size.width * 0.2, paint..color = Colors.grey);
+
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(covariant PointerPainter oldDelegate) {
+    return oldDelegate.angle != angle;
+  }
+}
+
+class Pointer extends StatelessWidget {
   const Pointer({super.key, required this.angle});
-
   final double angle;
 
   @override
-  Widget build(BuildContext context){
-    return Transform.rotate(
-      angle: angle,
-      alignment: Alignment.bottomCenter,
-      child: ImageAssets(image: "assets/pointer.png", x:0.9),
-
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 20,
+      height: 140,
+      child: CustomPaint(
+        painter: PointerPainter(angle: angle),
+      ),
     );
   }
 }
@@ -25,8 +65,8 @@ double mapDbToAngle(double db) {
   const minDb = 0.0;
   const maxDb = 120.0;
 
-  const minAngle = -130 * pi / 180;
-  const maxAngle =  130 * pi / 180;
+  const minAngle = -120 * pi / 180;
+  const maxAngle =  120 * pi / 180;
 
   final clampedDb = db.clamp(minDb, maxDb);
 
@@ -54,7 +94,7 @@ class _AnimatePointerState extends State<AnimatePointer> with SingleTickerProvid
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 20),
     );
 
     _angleTween = Tween<double>(begin: _currentSmoothedAngle, end: _currentSmoothedAngle);
@@ -74,8 +114,7 @@ class _AnimatePointerState extends State<AnimatePointer> with SingleTickerProvid
   void _handleDbChange(double db) {
     final targetAngle = mapDbToAngle(db);
 
-    const alpha = 0.2;
-    final nextAngle = alpha * targetAngle + (1 - alpha) * _currentSmoothedAngle;
+    final nextAngle =  targetAngle;
 
     if ((nextAngle - _currentSmoothedAngle).abs() < 0.001) return;
 
