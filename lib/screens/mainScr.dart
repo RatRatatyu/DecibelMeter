@@ -93,7 +93,7 @@ class MainScreen extends StatelessWidget{
                 alignment: Alignment.center,
                 children: [
                   const ImageAssets(image: "assets/diagram.jpg", x: 0.9),
-                  AnimatePointer(),
+                  Positioned(bottom: uiSize(context, 0.30),child: AnimatePointer())
                 ],
               )
             ],
