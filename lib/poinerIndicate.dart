@@ -13,7 +13,7 @@ class PointerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.red
+      ..color = Colors.deepPurple
       ..style = PaintingStyle.fill
       ..strokeCap = StrokeCap.round;
 
