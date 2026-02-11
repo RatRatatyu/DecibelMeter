@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:sound_metter/state/noisePrividerState.dart';
 import 'package:provider/provider.dart';
+import 'package:sound_metter/uiStyle/style.dart';
 
 class graphicDb extends StatefulWidget {
   const graphicDb({super.key});
@@ -53,6 +54,23 @@ class _graphicDbState extends State<graphicDb> {
                     show: false
                   ),
                   lineTouchData: LineTouchData(enabled: false),
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        interval: 20,
+                        getTitlesWidget: (spots, meta){
+                          return Text(
+                            spots.toInt().toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: textSize(context, 0.03)
+                            ),
+                          );
+                        }
+                      )
+                    )
+                  )
 
                 ),
             ),
