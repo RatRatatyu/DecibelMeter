@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:noise_meter/noise_meter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 
 class NoiseProvider extends ChangeNotifier{
@@ -22,7 +23,10 @@ class NoiseProvider extends ChangeNotifier{
   final Duration _updateInterval = const Duration(milliseconds: 200); //5 раз в секунду
 
   final int _windowSize = 20;
-  final List<double> _window = [];
+  List<double> window = [];
+  List<FlSpot> windowFlSpots = [];
+
+
 
 
   Future<void> start() async {
@@ -59,13 +63,21 @@ class NoiseProvider extends ChangeNotifier{
 
     if (peakDb > maxDb) maxDb = peakDb;
 
-    _window.add(safeDb);
-    if(_window.length > _windowSize){
-      _window.removeAt(0);
+    window = List.from(window)..add(safeDb);
+    if(window.length > _windowSize){
+      window.removeAt(0);
     }
+    windowFlSpots = window
+        .asMap()
+        .entries
+        .map((entry) => FlSpot(
+      entry.key.toDouble(),
+      entry.value,
+    )).toList();
 
-    final sum = _window.reduce((a,b) => a+b);
-    avgDb = sum / _window.length;
+
+    final sum = window.reduce((a,b) => a+b);
+    avgDb = sum / window.length;
 
 
 
@@ -86,7 +98,7 @@ class NoiseProvider extends ChangeNotifier{
     peakDb = 0;
     db = 0;
     _lastUiUpdate = DateTime.now();
-    _window.clear();
+    window.clear();
     notifyListeners();
   }
 
