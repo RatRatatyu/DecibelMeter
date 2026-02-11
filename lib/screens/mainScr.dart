@@ -4,6 +4,7 @@ import 'package:sound_metter/indications.dart';
 import 'package:sound_metter/screens/infoPage.dart';
 import 'package:sound_metter/uiStyle/style.dart';
 import 'package:sound_metter/poinerIndicate.dart';
+import 'package:sound_metter/graphDb.dart';
 
 class MainScreen extends StatelessWidget{
   const MainScreen({super.key});
@@ -100,7 +101,9 @@ class MainScreen extends StatelessWidget{
           ),
           Spacer(flex: 1,),
           Indications(),
-          Spacer(flex: 9,),
+          graphicDb(),
+          Spacer(flex: 1,),
+
         ],
       ),
       backgroundColor: backgroundColor,
