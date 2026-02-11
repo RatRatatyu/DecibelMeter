@@ -52,8 +52,9 @@ class _graphicDbState extends State<graphicDb> {
                   gridData: FlGridData(
                     show: false
                   ),
+                  lineTouchData: LineTouchData(enabled: false),
 
-                )
+                ),
             ),
           );
         }
