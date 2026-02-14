@@ -59,17 +59,17 @@ class _MyHomePage extends State<MyHomePage> {
   Future<void> requestMicPermission() async {
     final status = await Permission.microphone.request();
 
+    if (status.isGranted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) context.read<NoiseProvider>().start();
+      });
+    } else if (status.isPermanentlyDenied || status.isDenied) {
+      Future.microtask(() => showMicDialog());
+    }
+
     setState(() {
       micGranted = status.isGranted;
     });
-
-    if (!micGranted) {
-      Future.microtask(() => showMicDialog());
-    }
-
-    if (status.isPermanentlyDenied) {
-      Future.microtask(() => showMicDialog());
-    }
   }
 
   void showMicDialog() {
@@ -89,7 +89,7 @@ class _MyHomePage extends State<MyHomePage> {
             ),
             TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text("Canсel")
+                child: Text("Cancel")
             ),
           ],
         );
