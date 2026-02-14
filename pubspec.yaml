@@ -29,5 +29,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/diagram.jpg
-    - assets/pointer.png
     - assets/texts/ruText.md
