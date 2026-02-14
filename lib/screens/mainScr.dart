@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sound_metter/uiStyle/imageAsset.dart';
-import 'package:sound_metter/indications.dart';
+import 'package:sound_metter/peakIndication.dart';
 import 'package:sound_metter/screens/infoPage.dart';
 import 'package:sound_metter/uiStyle/style.dart';
 import 'package:sound_metter/poinerIndicate.dart';
 import 'package:sound_metter/graphDb.dart';
+import 'package:sound_metter/othersIndicates.dart';
 
 class MainScreen extends StatelessWidget{
   const MainScreen({super.key});
@@ -99,10 +100,16 @@ class MainScreen extends StatelessWidget{
               )
             ],
           ),
-          Spacer(flex: 1,),
-          Indications(),
+         SizedBox(height: 18,),
+          PeakIndicate(),
           graphicDb(),
+          othersIndications(),
           Spacer(flex: 1,),
+          SizedBox(
+            height: 75,
+            child: Placeholder(), //for advertising
+          )
+
 
         ],
       ),
