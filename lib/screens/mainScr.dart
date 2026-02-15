@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sound_metter/uiStyle/imageAsset.dart';
-import 'package:sound_metter/peakIndication.dart';
-import 'package:sound_metter/screens/infoPage.dart';
+import 'package:sound_metter/noise/peakIndication.dart';
 import 'package:sound_metter/uiStyle/style.dart';
-import 'package:sound_metter/poinerIndicate.dart';
-import 'package:sound_metter/graphDb.dart';
-import 'package:sound_metter/othersIndicates.dart';
+import 'package:sound_metter/noise/graphDb.dart';
+import 'package:sound_metter/noise/othersIndicates.dart';
+import 'package:sound_metter/shared/diagramWidget.dart';
 
 class MainScreen extends StatelessWidget{
   const MainScreen({super.key});
@@ -24,9 +23,8 @@ class MainScreen extends StatelessWidget{
           backgroundColor: colorScheme.primary,
           title: Text("Decibel Meter", style: TextStyle(fontSize: textSize(context, 0.05), color: Colors.white),),
           actions: [
-            IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute<void>(
-              builder: (context) => const InfoPage(),
-            )), icon: Icon(Icons.lightbulb), color: Colors.yellow, iconSize: uiSize(context, 0.06),)
+            IconButton(onPressed: () => Navigator.restorablePushNamed(context, '/info'),
+            icon: Icon(Icons.lightbulb), color: Colors.yellow, iconSize: uiSize(context, 0.06),)
           ],
         ),
         drawer: Drawer(
@@ -43,9 +41,7 @@ class MainScreen extends StatelessWidget{
                 title:  Text("calibration", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute<void>(
-                    builder: (context) => const InfoPage(),
-                  ));
+                  Navigator.restorablePushNamed(context, '/calibarte');
                 }
               ),
 
@@ -54,9 +50,7 @@ class MainScreen extends StatelessWidget{
                 title:  Text("Language", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute<void>(
-                      builder: (context) => const InfoPage(),
-                    ));
+                   Navigator.restorablePushNamed(context, '/languageCh');
                   }
               ),
 
@@ -65,9 +59,7 @@ class MainScreen extends StatelessWidget{
                 title:  Text("Privacy Policy", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute<void>(
-                      builder: (context) => const InfoPage(),
-                    ));
+
                   }
               ),
 
@@ -76,9 +68,7 @@ class MainScreen extends StatelessWidget{
                 title:  Text("Share", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute<void>(
-                      builder: (context) => const InfoPage(),
-                    ));
+
                   }
               ),
             ],
@@ -88,19 +78,8 @@ class MainScreen extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  const ImageAssets(image: "assets/diagram.jpg", x: 0.9),
-                  Positioned(bottom: uiSize(context, 0.30),child: AnimatePointer())
-                ],
-              )
-            ],
-          ),
-         SizedBox(height: 18,),
+          diagramWidget(),
+          SizedBox(height: 18,),
           PeakIndicate(),
           graphicDb(),
           othersIndications(),
