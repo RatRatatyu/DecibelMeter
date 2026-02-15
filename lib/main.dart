@@ -4,6 +4,9 @@ import 'package:sound_metter/screens/mainScr.dart';
 import 'package:sound_metter/state/noisePrividerState.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:sound_metter/screens/infoPage.dart';
+import 'package:sound_metter/screens/calibrationScreen.dart';
+import 'package:sound_metter/screens/languageScreen.dart';
 
 
 void main() async {
@@ -28,11 +31,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyHomePage(),
+        '/info': (context) => const InfoPage(),
+        '/calibarte': (context) => const calibrationDb(),
+        '/languageCh': (context) => const languageChange(),
+      },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         scaffoldBackgroundColor: const Color(0xFF1B1D1C),
       ),
-      home:  MyHomePage(),
     );
   }
 }
