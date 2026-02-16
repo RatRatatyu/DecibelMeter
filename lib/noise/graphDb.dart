@@ -20,9 +20,11 @@ class _graphicDbState extends State<graphicDb> {
         builder: (_, spots, __) {
           if (spots.isEmpty) return const Spacer();
 
-          return AspectRatio(
-            aspectRatio: 2.0,
-            child: LineChart(
+          return Container(
+            margin: EdgeInsets.all(16),
+            child: AspectRatio(
+              aspectRatio: 2.0,
+              child: LineChart(
                 LineChartData(
                     minY: 0,
                     maxY: 120,
@@ -30,49 +32,50 @@ class _graphicDbState extends State<graphicDb> {
                     minX: spots.first.x,
                     lineBarsData: [
                       LineChartBarData(
-                        spots: spots,
-                        isCurved: true,
-                        color: Colors.deepPurple,
-                        belowBarData: BarAreaData(
-                          show: true,
-                          gradient: const LinearGradient(
-                          colors: [
-                          Colors.deepPurple,
-                          Colors.purple,
-                          Colors.blueAccent
-                          ],
-                          begin: Alignment.centerRight,
-                          end: Alignment.centerLeft,
-                        ),
-                        ),
-                        dotData: FlDotData(
-                          show: false,
-                        )
+                          spots: spots,
+                          isCurved: true,
+                          color: Colors.deepPurple,
+                          belowBarData: BarAreaData(
+                            show: true,
+                            gradient: const LinearGradient(
+                              colors: [
+                                Colors.deepPurple,
+                                Colors.purple,
+                                Colors.blueAccent
+                              ],
+                              begin: Alignment.centerRight,
+                              end: Alignment.centerLeft,
+                            ),
+                          ),
+                          dotData: FlDotData(
+                            show: false,
+                          )
                       ),
                     ],
-                  gridData: FlGridData(
-                    show: false
-                  ),
-                  lineTouchData: LineTouchData(enabled: false),
-                  titlesData: FlTitlesData(
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        interval: 20,
-                        getTitlesWidget: (spots, meta){
-                          return Text(
-                            spots.toInt().toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: textSize(context, 0.03)
-                            ),
-                          );
-                        }
-                      )
+                    gridData: FlGridData(
+                        show: false
+                    ),
+                    lineTouchData: LineTouchData(enabled: false),
+                    titlesData: FlTitlesData(
+                        leftTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                                showTitles: true,
+                                interval: 20,
+                                getTitlesWidget: (spots, meta){
+                                  return Text(
+                                    spots.toInt().toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: textSize(context, 0.03)
+                                    ),
+                                  );
+                                }
+                            )
+                        )
                     )
-                  )
 
                 ),
+              ),
             ),
           );
         }
