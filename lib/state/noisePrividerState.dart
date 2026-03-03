@@ -27,6 +27,22 @@ class NoiseProvider extends ChangeNotifier{
   List<FlSpot> windowFlSpots = [];
 
 
+  void increaseCalibration() {
+    if (callibrationOffset >= 30) return;
+    callibrationOffset += 1;
+    notifyListeners();
+  }
+
+  void decreaseCalibration() {
+    if (callibrationOffset <= -30) return;
+    callibrationOffset -= 1;
+    notifyListeners();
+  }
+
+  void resetCalibration(){
+    callibrationOffset = -20;
+    notifyListeners();
+  }
 
 
   Future<void> start() async {
@@ -78,7 +94,6 @@ class NoiseProvider extends ChangeNotifier{
 
     final sum = window.reduce((a,b) => a+b);
     avgDb = sum / window.length;
-
 
 
     final now = DateTime.now();
