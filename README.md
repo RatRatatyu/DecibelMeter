@@ -18,18 +18,6 @@ The main goal of the project is to apply theoretical knowledge in a real applica
 - Programming language: Dart 
 - State management: Provider (ChangeNotifier)
 
-
-## ✅ Implemented Features
-- [x] Project structure created
-- [x] Main UI screen
-- [x] Core logic (partially)
-
-## 🚧 In Progress
-- [ ] Navigation between screens
-- [ ] Logic improvements
-- [ ] UI improvements
-- [ ] Others screens
-
 ## 🔜 Planned Features
 - [ ] Code refactoring
 - [ ] Testing
