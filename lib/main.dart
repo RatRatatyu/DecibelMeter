@@ -4,17 +4,15 @@ import 'package:sound_metter/screens/mainScr.dart';
 import 'package:sound_metter/state/noisePrividerState.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:sound_metter/adaptationWidgets/appLayout.dart';
 import 'package:sound_metter/screens/infoPage.dart';
 import 'package:sound_metter/screens/calibrationScreen.dart';
 import 'package:sound_metter/screens/languageScreen.dart';
+import 'package:sound_metter/uiStyle/style.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
   runApp(
     ChangeNotifierProvider(
         create: (_) => NoiseProvider(),
@@ -30,18 +28,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MyHomePage(),
-        '/info': (context) => const InfoPage(),
-        '/calibarte': (context) => const calibrationDb(),
-        '/languageCh': (context) => const languageChange(),
-      },
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        scaffoldBackgroundColor: const Color(0xFF1B1D1C),
-      ),
+    return LayoutBuilder(
+      builder: (context, constrains){
+        final width = constrains.maxWidth;
+
+        final layoutType = switch(width) {
+          >= 800 => LayoutType.expanded,
+          >= 600 => LayoutType.medium,
+          _      => LayoutType.compact,
+        };
+
+        final sizes = layoutType == LayoutType.compact
+        ? MobileSizes()
+        : TabletSizes();
+
+        final appLayout = AppLayout(layoutType, sizes);
+
+        return LayoutProvider(
+            layout: appLayout,
+            child: MaterialApp(
+              initialRoute: '/',
+              routes: {
+                '/': (context) => const MyHomePage(),
+                '/info': (context) => const InfoPage(),
+                '/calibarte': (context) => const calibrationDb(),
+                '/languageCh': (context) => const languageChange(),
+              },
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                scaffoldBackgroundColor: const Color(0xFF1B1D1C),
+              ),
+            ),
+        );
+      }
     );
   }
 }
@@ -86,7 +105,7 @@ class _MyHomePage extends State<MyHomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Need Permission"),
+          title: Text("Need Permission",),
           content: Text("The app needs access to the microphone."),
           actions: [
             TextButton(
