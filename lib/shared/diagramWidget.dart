@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sound_metter/uiStyle/imageAsset.dart';
-import 'package:sound_metter/uiStyle/style.dart';
+import 'package:sound_metter/adaptationWidgets/appLayout.dart';
 import 'package:sound_metter/noise/poinerIndicate.dart';
 
 class diagramWidget extends StatelessWidget {
@@ -8,17 +7,21 @@ class diagramWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            const ImageAssets(image: "assets/diagram.jpg", x: 0.9),
-            Positioned(bottom: uiSize(context, 0.28),child: AnimatePointer())
-          ],
-        )
-      ],
+    return Expanded(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset(
+                "assets/diagram.jpg",
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+               Positioned(
+                child: AnimatePointer(),
+              ),
+            ],
+          ),
     );
+
   }
 }
