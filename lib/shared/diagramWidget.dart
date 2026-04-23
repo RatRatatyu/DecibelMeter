@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sound_metter/adaptationWidgets/appLayout.dart';
 import 'package:sound_metter/noise/poinerIndicate.dart';
 
 class diagramWidget extends StatelessWidget {
