@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sound_metter/adaptationWidgets/appLayout.dart';
 import 'package:sound_metter/state/noisePrividerState.dart';
 import 'package:sound_metter/uiStyle/style.dart';
 
@@ -9,9 +10,17 @@ class othersIndications extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final layout = LayoutProvider.of(context);
+    final  headLineS = Theme.of(context).textTheme.headlineSmall?.copyWith(
+      color: Colors.white,
+    );
+    final titleM = Theme.of(context).textTheme.titleMedium?.copyWith(
+      color: Colors.white,
+    );
+
     return
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: layout.sizes.s),
         child:Column(
           children: [
             Row(
@@ -22,12 +31,10 @@ class othersIndications extends StatelessWidget{
                     Selector<NoiseProvider, double>(
                         selector: (_,p) => p.maxDb,
                         builder: (_,value, __){
-                          return Text(value > 0  ? "${value.toStringAsFixed(0)} dB" : "", style: TextStyle(
-                              fontSize: textSize(context, 0.05), color: Colors.white),);
+                          return Text(value > 0  ? "${value.toStringAsFixed(0)} dB" : "", style: headLineS);
                         }
                     ),
-                    Text("Max", style: TextStyle(
-                        fontSize: textSize(context, 0.03), color: Colors.white),),
+                    Text("Max", style: titleM),
                   ],
                 ),
                 Column(
@@ -36,13 +43,10 @@ class othersIndications extends StatelessWidget{
                       selector: (_,p) => p.avgDb,
                       builder: (_,value, __) {
                         return Text(value > 0 ? "${value
-                            .toStringAsFixed(0)} dB" : "", style: TextStyle(
-                            fontSize: textSize(context, 0.05),
-                            color: Colors.white),);
+                            .toStringAsFixed(0)} dB" : "", style: headLineS);
                       },
                     ),
-                    Text("Avg", style: TextStyle(
-                        fontSize: textSize(context, 0.03), color: Colors.white),),
+                    Text("Avg", style: titleM),
                   ],
                 )
               ],
