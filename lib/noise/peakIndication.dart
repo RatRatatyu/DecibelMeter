@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sound_metter/adaptationWidgets/appLayout.dart';
 import 'package:sound_metter/state/noisePrividerState.dart';
-import 'package:sound_metter/uiStyle/style.dart';
+
 
 
 class PeakIndicate extends StatelessWidget{
@@ -9,6 +10,7 @@ class PeakIndicate extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final layout = LayoutProvider.of(context);
     final  headLineM = Theme.of(context).textTheme.headlineMedium?.copyWith(
       color: Colors.white,
     );
@@ -17,7 +19,7 @@ class PeakIndicate extends StatelessWidget{
     );
     return
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: layout.sizes.s),
         child:Column(
           children: [
             Selector<NoiseProvider, double>(
