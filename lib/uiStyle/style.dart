@@ -1,10 +1,59 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
-double textSize(BuildContext context, double factor) {
-  final media = MediaQuery.of(context);
-  return media.textScaler.scale(media.size.width * factor);
+
+
+abstract class IAppSizes {
+  double get grid;
+  double get iconSize;
+
+  // padding
+  double get xs => grid * 0.5;
+  double get s  => grid * 1.0;
+  double get m  => grid * 2.0;
+
+  // Icons
+  double get iconSm => iconSize * 0.75;
+  double get iconMd => iconSize;
+  double get iconLg => iconSize * 1.5;
 }
 
-double uiSize(BuildContext context, double factor){
-  return MediaQuery.sizeOf(context).width * factor;
+class MobileSizes extends IAppSizes {
+  @override
+  double get grid => 8.0;
+  @override
+  double get iconSize => 24.0;
 }
+
+class TabletSizes extends IAppSizes {
+  @override
+  double get grid => 16.0;
+  @override
+  double get iconSize => 28.0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
