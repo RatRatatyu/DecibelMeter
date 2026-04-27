@@ -1,7 +1,3 @@
-import 'dart:math';
-import 'package:flutter/material.dart';
-
-
 
 abstract class IAppSizes {
   double get grid;
