@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sound_metter/shared/diagramWidget.dart';
 import 'package:sound_metter/noise/peakIndication.dart';
-import 'package:sound_metter/uiStyle/style.dart';
 import 'package:sound_metter/state/noisePrividerState.dart';
 import 'package:sound_metter/adaptationWidgets/appLayout.dart';
 class CalibrationScreen extends StatelessWidget {
