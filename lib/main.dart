@@ -6,9 +6,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:sound_metter/adaptationWidgets/appLayout.dart';
 import 'package:sound_metter/screens/infoPage.dart';
-import 'package:sound_metter/screens/calibrationScreen.dart';
 import 'package:sound_metter/screens/languageScreen.dart';
 import 'package:sound_metter/uiStyle/style.dart';
+import 'package:sound_metter/screens/calibrationScreen.dart';
 
 
 void main() async {
@@ -22,45 +22,47 @@ void main() async {
 }
 
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constrains){
-        final width = constrains.maxWidth;
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyHomePage(),
+        '/info': (context) => const InfoPage(),
+        '/calibration': (context) => const CalibrationScreen(),
+        '/languageCh': (context) => const languageChange(),
+      },
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: const Color(0xFF1B1D1C),
+      ),
+      builder: (context, child) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final width = constraints.maxWidth;
 
-        final layoutType = switch(width) {
-          >= 800 => LayoutType.expanded,
-          >= 600 => LayoutType.medium,
-          _      => LayoutType.compact,
-        };
+            final layoutType = switch (width) {
+              >= 1200 => LayoutType.expanded,
+              >= 800 => LayoutType.medium,
+              _ => LayoutType.compact,
+            };
 
-        final sizes = layoutType == LayoutType.compact
-        ? MobileSizes()
-        : TabletSizes();
+            final sizes = layoutType == LayoutType.compact
+                ? MobileSizes()
+                : TabletSizes();
 
-        final appLayout = AppLayout(layoutType, sizes);
+            final appLayout = AppLayout(layoutType, sizes);
 
-        return LayoutProvider(
-            layout: appLayout,
-            child: MaterialApp(
-              initialRoute: '/',
-              routes: {
-                '/': (context) => const MyHomePage(),
-                '/info': (context) => const InfoPage(),
-                '/calibarte': (context) => const calibrationDb(),
-                '/languageCh': (context) => const languageChange(),
-              },
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                scaffoldBackgroundColor: const Color(0xFF1B1D1C),
-              ),
-            ),
+            return LayoutProvider(
+              layout: appLayout,
+              child: child ?? const SizedBox.shrink(),
+            );
+          },
         );
-      }
+      },
     );
   }
 }
