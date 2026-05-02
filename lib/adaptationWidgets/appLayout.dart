@@ -32,7 +32,8 @@ class LayoutProvider extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(LayoutProvider old) {
-    return old.layout.type != layout.type;
+  bool updateShouldNotify(LayoutProvider oldWidget) {
+    return oldWidget.layout.type != layout.type ||
+        oldWidget.layout.sizes.grid != layout.sizes.grid;
   }
 }
