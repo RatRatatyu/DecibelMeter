@@ -18,41 +18,36 @@ class othersIndications extends StatelessWidget{
       color: Colors.white,
     );
 
-    return
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: layout.sizes.s),
-        child:Column(
+    return Padding(
+        padding: EdgeInsets.all(layout.sizes.l),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Column(
               children: [
-                Column(
-                  children: [
-                    Selector<NoiseProvider, double>(
-                        selector: (_,p) => p.maxDb,
-                        builder: (_,value, __){
-                          return Text(value > 0  ? "${value.toStringAsFixed(0)} dB" : "", style: headLineS);
-                        }
-                    ),
-                    Text("Max", style: titleM),
-                  ],
+                Selector<NoiseProvider, double>(
+                    selector: (_,p) => p.maxDb,
+                    builder: (_,value, __){
+                      return Text(value > 0  ? "${value.toStringAsFixed(0)} dB" : "", style: headLineS);
+                    }
                 ),
-                Column(
-                  children: [
-                    Selector<NoiseProvider, double>(
-                      selector: (_,p) => p.avgDb,
-                      builder: (_,value, __) {
-                        return Text(value > 0 ? "${value
-                            .toStringAsFixed(0)} dB" : "", style: headLineS);
-                      },
-                    ),
-                    Text("Avg", style: titleM),
-                  ],
-                )
+                Text("Max", style: titleM),
               ],
             ),
+            Column(
+              children: [
+                Selector<NoiseProvider, double>(
+                  selector: (_,p) => p.avgDb,
+                  builder: (_,value, __) {
+                    return Text(value > 0 ? "${value
+                        .toStringAsFixed(0)} dB" : "", style: headLineS);
+                  },
+                ),
+                Text("Avg", style: titleM),
+              ],
+            )
           ],
         ),
-      );
+    );
   }
 }
