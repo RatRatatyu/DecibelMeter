@@ -51,12 +51,19 @@ class Pointer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 20,
-      height: 140,
-      child: CustomPaint(
-        painter: PointerPainter(angle: angle),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final size = constraints.maxHeight;
+
+        return SizedBox(
+          width: size * 0.060,
+          height: size * 0.35,
+          child: CustomPaint(
+            painter: PointerPainter(angle: angle),
+            size: Size.infinite,
+          ),
+        );
+      },
     );
   }
 }
