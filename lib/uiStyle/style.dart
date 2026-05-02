@@ -7,6 +7,7 @@ abstract class IAppSizes {
   double get xs => grid * 0.5;
   double get s  => grid * 1.0;
   double get m  => grid * 2.0;
+  double get l  => grid * 6.0;
 
   // Icons
   double get iconSm => iconSize * 0.75;
