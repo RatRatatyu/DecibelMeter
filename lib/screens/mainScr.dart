@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sound_metter/uiStyle/imageAsset.dart';
-import 'package:sound_metter/noise/peakIndication.dart';
-import 'package:sound_metter/uiStyle/style.dart';
-import 'package:sound_metter/noise/graphDb.dart';
-import 'package:sound_metter/noise/othersIndicates.dart';
-import 'package:sound_metter/shared/diagramWidget.dart';
+import 'package:sound_metter/adaptationWidgets/appLayout.dart';
+import "package:sound_metter/adaptationWidgets/MobileLayout.dart";
+import 'package:sound_metter/adaptationWidgets/TabletLayout.dart';
+import 'package:sound_metter/adaptationWidgets/SplitLayout.dart';
 
 class MainScreen extends StatelessWidget{
   const MainScreen({super.key});
@@ -13,18 +11,25 @@ class MainScreen extends StatelessWidget{
   Widget build(BuildContext context){
     final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
     final colorScheme = Theme.of(context).colorScheme;
+    final layout = LayoutProvider.of(context);
+    final titleL = Theme.of(context).textTheme.titleLarge?.copyWith(
+      color: Colors.white,
+    );
+    final titleM = Theme.of(context).textTheme.titleMedium?.copyWith(
+      color: Colors.white,
+    );
 
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          size: uiSize(context, 0.06),
+          size: layout.sizes.iconMd,
           color: Colors.white,
         ),
           backgroundColor: colorScheme.primary,
-          title: Text("Decibel Meter", style: TextStyle(fontSize: textSize(context, 0.05), color: Colors.white),),
+          title: Text("Decibel Meter", style: titleL),
           actions: [
             IconButton(onPressed: () => Navigator.restorablePushNamed(context, '/info'),
-            icon: Icon(Icons.lightbulb), color: Colors.yellow, iconSize: uiSize(context, 0.06),)
+            icon: Icon(Icons.lightbulb), color: Colors.yellow, iconSize: layout.sizes.iconMd,)
           ],
         ),
         drawer: Drawer(
@@ -33,21 +38,21 @@ class MainScreen extends StatelessWidget{
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(color: colorScheme.primary),
-                child: ImageAssets(image: "assets/diagram.jpg", x: 0.03),
+                child: Placeholder(),
               ),
 
               ListTile(
-                leading: Icon(Icons.mic, color: Colors.white, size: uiSize(context, 0.05),),
-                title:  Text("calibration", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
+                leading: Icon(Icons.mic, color: Colors.white, size: layout.sizes.iconSm,),
+                title:  Text("calibration", style: titleM),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.restorablePushNamed(context, '/calibarte');
+                  Navigator.restorablePushNamed(context, '/calibration');
                 }
               ),
 
               ListTile(
-                leading: Icon(Icons.language, color: Colors.white, size: uiSize(context, 0.05),),
-                title:  Text("Language", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
+                leading: Icon(Icons.language, color: Colors.white, size: layout.sizes.iconSm,),
+                title:  Text("Language", style: titleM),
                   onTap: () {
                     Navigator.pop(context);
                    Navigator.restorablePushNamed(context, '/languageCh');
@@ -55,8 +60,8 @@ class MainScreen extends StatelessWidget{
               ),
 
               ListTile(
-                leading: Icon(Icons.safety_check, color: Colors.white, size: uiSize(context, 0.05),),
-                title:  Text("Privacy Policy", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
+                leading: Icon(Icons.safety_check, color: Colors.white, size: layout.sizes.iconSm,),
+                title:  Text("Privacy Policy", style: titleM),
                   onTap: () {
                     Navigator.pop(context);
 
@@ -64,8 +69,8 @@ class MainScreen extends StatelessWidget{
               ),
 
               ListTile(
-                leading: Icon(Icons.share, color: Colors.white, size: uiSize(context, 0.05),),
-                title:  Text("Share", style: TextStyle(fontSize: textSize(context, 0.04), color: Colors.white),),
+                leading: Icon(Icons.share, color: Colors.white, size: layout.sizes.iconSm,),
+                title:  Text("Share", style: titleM),
                   onTap: () {
                     Navigator.pop(context);
 
@@ -74,25 +79,19 @@ class MainScreen extends StatelessWidget{
             ],
           ),
         ),
-        body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 20),
-          diagramWidget(),
-          SizedBox(height: 18,),
-          PeakIndicate(),
-          graphicDb(),
-          othersIndications(),
-          Spacer(flex: 1,),
-          SizedBox(
-            height: 75,
-            child: Placeholder(), //for advertising
-          )
-
-
-        ],
-      ),
+        body: layout.isCompact
+            ? SplitLayout()
+            : layout.isMedium
+              ? MobileLayout()
+              : TabletLayout(),
       backgroundColor: backgroundColor,
     );
   }
 }
+
+
+
+
+
+
+
