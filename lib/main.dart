@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
             final width = constraints.maxWidth;
 
             final layoutType = switch (width) {
-              >= 1200 => LayoutType.expanded,
-              >= 800 => LayoutType.medium,
+              >= 600 => LayoutType.expanded,
+              >= 360 => LayoutType.medium,
               _ => LayoutType.compact,
             };
 
