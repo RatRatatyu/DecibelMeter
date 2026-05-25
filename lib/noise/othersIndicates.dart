@@ -19,7 +19,7 @@ class othersIndications extends StatelessWidget{
     );
 
     return Padding(
-        padding: EdgeInsets.all(layout.sizes.l),
+        padding: EdgeInsets.all(layout.sizes.m),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
