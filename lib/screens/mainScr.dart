@@ -25,65 +25,65 @@ class MainScreen extends StatelessWidget{
           size: layout.sizes.iconMd,
           color: Colors.white,
         ),
-          backgroundColor: colorScheme.primary,
-          title: Text("Decibel Meter", style: titleL),
-          actions: [
-            IconButton(onPressed: () => Navigator.restorablePushNamed(context, '/info'),
+        backgroundColor: colorScheme.primary,
+        title: Text("Decibel Meter", style: titleL),
+        actions: [
+          IconButton(onPressed: () => Navigator.restorablePushNamed(context, '/info'),
             icon: Icon(Icons.lightbulb), color: Colors.yellow, iconSize: layout.sizes.iconMd,)
-          ],
-        ),
-        drawer: Drawer(
-          backgroundColor: backgroundColor,
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(color: colorScheme.primary),
-                child: Placeholder(),
-              ),
+        ],
+      ),
+      drawer: Drawer(
+        backgroundColor: backgroundColor,
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(color: colorScheme.primary),
+              child: Placeholder(),
+            ),
 
-              ListTile(
+            ListTile(
                 leading: Icon(Icons.mic, color: Colors.white, size: layout.sizes.iconSm,),
                 title:  Text("calibration", style: titleM),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.restorablePushNamed(context, '/calibration');
                 }
-              ),
+            ),
 
-              ListTile(
+            ListTile(
                 leading: Icon(Icons.language, color: Colors.white, size: layout.sizes.iconSm,),
                 title:  Text("Language", style: titleM),
-                  onTap: () {
-                    Navigator.pop(context);
-                   Navigator.restorablePushNamed(context, '/languageCh');
-                  }
-              ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.restorablePushNamed(context, '/languageCh');
+                }
+            ),
 
-              ListTile(
+            ListTile(
                 leading: Icon(Icons.safety_check, color: Colors.white, size: layout.sizes.iconSm,),
                 title:  Text("Privacy Policy", style: titleM),
-                  onTap: () {
-                    Navigator.pop(context);
+                onTap: () {
+                  Navigator.pop(context);
 
-                  }
-              ),
+                }
+            ),
 
-              ListTile(
+            ListTile(
                 leading: Icon(Icons.share, color: Colors.white, size: layout.sizes.iconSm,),
                 title:  Text("Share", style: titleM),
-                  onTap: () {
-                    Navigator.pop(context);
+                onTap: () {
+                  Navigator.pop(context);
 
-                  }
-              ),
-            ],
-          ),
+                }
+            ),
+          ],
         ),
-        body: layout.isCompact
-            ? SplitLayout()
-            : layout.isMedium
-              ? MobileLayout()
-              : TabletLayout(),
+      ),
+      body: switch (layout.type) {
+        LayoutType.expanded => const TabletLayout(),
+        LayoutType.medium   => const MobileLayout(),
+        LayoutType.compact  => const SplitLayout(),
+      },
       backgroundColor: backgroundColor,
     );
   }
