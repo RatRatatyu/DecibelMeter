@@ -1,7 +1,8 @@
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:sound_metter/uiStyle/style.dart';
+
+import '../adaptationWidgets/appLayout.dart';
 
 Future<String> loadMarkdown() async {
   return await rootBundle.loadString('assets/texts/ruText.md');
@@ -15,19 +16,23 @@ class InfoPage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
+    final layout = LayoutProvider.of(context);
+    final titleL = Theme.of(context).textTheme.titleLarge;
+    final headLineS = Theme.of(context).textTheme.headlineSmall;
+    final bodyL = Theme.of(context).textTheme.bodyLarge;
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Colors.white,
-          size: uiSize(context, 0.06),
+          size: layout.sizes.iconMd,
         ),
         backgroundColor: colorScheme.primary,
         title: Text(
           "Information",
-          style: TextStyle(
+          style: titleL?.copyWith(
             color: Colors.white,
-            fontSize: textSize(context, 0.05),
-          ),
+          )
         ),
       ),
 
@@ -42,7 +47,9 @@ class InfoPage extends StatelessWidget {
             return Center(
               child: Text(
                 'Something went wrong',
-                style: TextStyle(color: Colors.white, fontSize: textSize(context, 0.06)),
+                style: headLineS?.copyWith(
+                    color: Colors.white
+                ),
               ),
             );
           }
@@ -50,22 +57,21 @@ class InfoPage extends StatelessWidget {
           return Markdown(
               data: snapshot.data!,
               styleSheet: MarkdownStyleSheet(
-                h1: TextStyle(
-                    fontSize: textSize(context, 0.06),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
+                h1: headLineS?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                h2: TextStyle(
-                    fontSize: textSize(context, 0.050),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
+                h2: titleL?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
                 ),
-                p: TextStyle(
-                    fontSize: textSize(context, 0.05),
-                    height: 1.5,
-                    color: Colors.white
+                p: bodyL?.copyWith(
+                  color: Colors.white
                 ),
-                strong: const TextStyle(fontWeight: FontWeight.bold),
+                strong: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
 
           );
