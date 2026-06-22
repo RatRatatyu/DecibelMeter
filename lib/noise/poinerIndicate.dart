@@ -53,7 +53,8 @@ class Pointer extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final size = constraints.maxHeight;
+        final orientation = MediaQuery.of(context).orientation == Orientation.landscape;
+        final size = orientation ? constraints.maxWidth : constraints.maxHeight;
 
         return SizedBox(
           width: size * 0.060,
