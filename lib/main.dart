@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const MyHomePage(),
         '/info': (context) => const InfoPage(),
         '/calibarte': (context) => const calibrationDb(),
-        '/languageCh': (context) => const languageChange(),
+        '/languageCh': (context) => const LanguageScreen(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 
 class MyHomePage extends StatefulWidget{
