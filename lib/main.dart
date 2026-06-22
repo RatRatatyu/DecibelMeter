@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return LayoutBuilder(
           builder: (context, constraints) {
-            final width = constraints.maxWidth;
+            final width = MediaQuery.of(context).size.shortestSide;
 
             final layoutType = switch (width) {
               >= 600 => LayoutType.expanded,
