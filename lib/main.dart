@@ -7,6 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:sound_metter/screens/infoPage.dart';
 import 'package:sound_metter/screens/calibrationScreen.dart';
 import 'package:sound_metter/screens/languageScreen.dart';
+import 'package:sound_metter/uiStyle/style.dart';
+
+import 'adaptationWidgets/appLayout.dart';
 
 
 void main() async {
@@ -35,16 +38,41 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const MyHomePage(),
         '/info': (context) => const InfoPage(),
-        '/calibarte': (context) => const calibrationDb(),
+        '/calibration': (context) => const CalibrationScreen(),
         '/languageCh': (context) => const LanguageScreen(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         scaffoldBackgroundColor: const Color(0xFF1B1D1C),
       ),
+      builder: (context, child) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final width = MediaQuery.of(context).size.shortestSide;
+
+            final layoutType = switch (width) {
+              >= 600 => LayoutType.expanded,
+              >= 360 => LayoutType.medium,
+              _ => LayoutType.compact,
+            };
+
+            final sizes = layoutType == LayoutType.compact
+                ? MobileSizes()
+                : TabletSizes();
+
+            final appLayout = AppLayout(layoutType, sizes);
+
+            return LayoutProvider(
+              layout: appLayout,
+              child: child ?? const SizedBox.shrink(),
+            );
+          },
+        );
+      },
     );
   }
 }
+
 
 
 
